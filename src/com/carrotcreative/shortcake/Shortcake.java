@@ -38,14 +38,16 @@ public class Shortcake {
         Pattern pattern = mPatternBuilder.build();
         Matcher matcher = pattern.matcher(mShortcode);
 
-        for (int groupNumber = 1; groupNumber <= matcher.groupCount(); groupNumber++)
+        if(matcher.find())
         {
-            int arrayPosition = groupNumber - 1;
-            map.put(mElements.get(arrayPosition), matcher.group(groupNumber));
-        }
-
-        if(map.keySet().size() > 0)
-        {
+            int matches = matcher.groupCount();
+            for (int groupNumber = 1; groupNumber <= matches; groupNumber++)
+            {
+                int arrayPosition = groupNumber - 1;
+                String key = mElements.get(arrayPosition);
+                String value = matcher.group(groupNumber);
+                map.put(key, value);
+            }
             return map;
         }
         else
